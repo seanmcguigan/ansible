@@ -1,0 +1,48 @@
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": ""
+  },
+  "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "region": "eu-west-1",
+    "source_ami_filter": {
+      "filters": {
+      "virtualization-type": "hvm",
+      "name": "ubuntu/images/*ubuntu-xenial-16.04-amd64-server-*",
+      "root-device-type": "ebs"
+      },
+      "owners": ["099720109477"],
+      "most_recent": true
+    },
+      "force_deregister": "true",
+      "force_delete_snapshot": "true",
+      "tags": {
+        "Name": "Staging Bastion",
+        "OS_Version": "Ubuntu"
+    },
+    "instance_type": "t2.micro",
+    "ssh_username": "ubuntu",
+    "ami_name": "stage-bastion"
+  }],
+  "provisioners": [
+    {   
+    "type": "shell",
+    "inline": [
+      "sleep 30",
+      "sudo apt-get update",
+      "sudo apt-get install -y unzip python-setuptools python-paramiko python-yaml python-dev python-crypto",
+      "sudo easy_install pip",
+      "sudo pip install jinja2 httplib2 ansible"
+      ]},
+      {
+    "type": "ansible-local",
+      "role_paths": ["../roles_playground/roles/nginxinc.nginx"],
+      "group_vars": "../roles_playground/group_vars",
+      "inventory_file": "../roles_playground/hosts",
+      "playbook_file": "../roles_playground/site.yml"
+    }   
+  ]
+}

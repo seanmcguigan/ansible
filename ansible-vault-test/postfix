@@ -1,0 +1,9 @@
+---
+env: dev
+
+# teradata vp EDW10.9.247.132/32 
+# control-m SS 10.9.247.24/32 
+# bastion SS 10.9.250.0/24
+
+mynetworks: 1127.0.0.0/8 10.9.247.132/32 10.9.247.24/32 10.9.250.0/24 [::1]/128
+relayhost: '[email-smtp.eu-west-1.amazonaws.com]:587'

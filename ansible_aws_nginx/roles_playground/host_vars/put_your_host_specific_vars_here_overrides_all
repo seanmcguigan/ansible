@@ -1,0 +1,3 @@
+---
+# name this file as the same name of the host.
+packer_version: "1.2.5"

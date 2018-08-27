@@ -1,0 +1,6 @@
+---
+- hosts: webservers
+  become: yes
+  user: ubuntu
+  roles:
+    - { role: nginxinc.nginx }

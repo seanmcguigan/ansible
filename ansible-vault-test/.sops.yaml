@@ -1,0 +1,7 @@
+creation_rules:
+- kms: arn:aws:kms:us-east-1:504936308768:key/4961e171-bcf4-41b2-a953-44490a8ac62b
+  # pgp: '1022470DE3F0BC54BC6AB62DE05550BC07FB1A0A'
+encrypted_files:
+- postfix
+- foo
+- postfix.yaml

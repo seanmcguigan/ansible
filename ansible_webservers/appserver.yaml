@@ -1,0 +1,40 @@
+---
+-  hosts: appserver
+   #strategy: free # if you are installing Apache on ten different servers and one of them has a yum lock, do you really 
+                  # want the other nine servers to wait around on the one server? 
+   user: vagrant
+   become: yes # simply is a flag to either activate or deactivate privilege escalation.(defaults to root)
+               # become_user: httpd # This task will be executed as user httpd, because the user is explciitly set:
+               # you need to set privilege escalation for you to 'become' that user.
+   gather_facts: no # no facts lookup, quicker!
+   vars: # vars inline
+     author: seanmcguigan
+     key: value
+   #vars_files:           # new key called 'var_iles' with list of values # vars in a LIST/ARRAY of files - vars_files:[ variables.yaml, more_variables.yaml ]
+   #- variables.yaml      # first object(an item) in list       
+   #- more_variables.yaml # second object(an item) in list
+
+   vars_files: [ variables.yaml, more_variables.yaml ]
+   vars_prompt: [ {name: domain, prompt: domain} ] # And this is how you can define an array of two objects:
+   #- name: domain
+   #  prompt: domain
+   # - <-- this is a new list 
+   tasks: # new key called tasks with a list(-) of mapped key values (key: value)
+   - name: Install packages # new list item at positional imdex [0]
+     yum: pkg={{ pkg }} state=installed update_cache=true # the first object a key value in the list
+   -                        # new list item at positional imdex [1]
+     name: date             # the first object(a key: value) in the list
+     command: date          # second object(key: value) in list
+     register: date_start   # fuck me the third object is also a key: value pair in list
+   - debug: var=date_start  # another list with a mapped key: value
+   -      
+     # lookup env variables
+     #debug: msg="{{ lookup('env','HOME') }} is the value listed"
+   - name: Run the uptime command
+     raw: /usr/bin/uptime >> /home/vagrant/uptime.log
+
+     # if you have a list of servers, it will only run on the first server the playbook touches
+   - name: List the /var directory and log it
+     raw: ls -la /var >> /home/vagrant/dir.list
+     # uncomment free(ie: fast as fuck) strategy above to default to linear
+     run_once: true 

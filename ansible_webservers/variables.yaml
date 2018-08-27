@@ -1,0 +1,6 @@
+key: value
+pkg: # list named 'pkg' with values 
+- lynx
+- vim
+- wget
+- nginx

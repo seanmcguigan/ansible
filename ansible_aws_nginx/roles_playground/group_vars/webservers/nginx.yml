@@ -1,0 +1,10 @@
+---
+
+modules:
+  njs: false
+  perl: false
+  waf: false
+  geoip: true
+  image_filter: true
+  rtmp: false
+  xslt: false
