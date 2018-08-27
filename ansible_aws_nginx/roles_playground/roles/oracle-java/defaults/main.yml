@@ -1,0 +1,9 @@
+---
+# file: oracle-java/defaults/main.yml
+#
+# defaults file
+#
+
+oracle_java_os_supported: yes
+oracle_java_set_as_default: yes
+oracle_java_use_defaults: yes

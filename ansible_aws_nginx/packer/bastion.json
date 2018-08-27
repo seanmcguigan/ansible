@@ -39,7 +39,8 @@
       ]},
       {
     "type": "ansible-local",
-      "role_paths": ["../roles_playground/roles/nginxinc.nginx"],
+      "role_paths": ["../roles_playground/roles/java", "../roles_playground/roles/tomcat"
+      ],
       "group_vars": "../roles_playground/group_vars",
       "inventory_file": "../roles_playground/hosts",
       "playbook_file": "../roles_playground/site.yml"
